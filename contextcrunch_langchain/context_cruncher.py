@@ -16,7 +16,6 @@ class ContextCruncher(RunnableLambda):
         if compression_ratio <= 0.5 or compression_ratio >= 1 :
             raise Exception("Compression ratio must be between 0.5 and 1 (exclusive)")
         self.compression_ratio = compression_ratio
-        print('validate_environment')
         self.contextcrunch_api_key = convert_to_secret_str(
             get_from_env( "contextcrunch_api_key", "CONTEXTCRUNCH_API_KEY")
         )
