@@ -1,0 +1,20 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "contextcrunch-langchain"
+version = "0.0.1"
+authors = [{ name = "Matthew Kwiatkowski", email = "matt@mkcodes.ca" }]
+description = "LangChain Integration for ContextCrunch prompt compression."
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = ["contextcrunch>=1.0.1", "langchain>=0.0.354"]
+[project.urls]
+Homepage = "https://github.com/contextcrunch-ai/contextcrunch-python"
+Issues = "https://github.com/contextcrunch-ai/contextcrunch-python/issues"
