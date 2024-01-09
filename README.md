@@ -19,7 +19,7 @@ Install this package with `pip install contextcrunch-langchain`.
 ### RAG
 You can easily modify an existing RAG pipeline by simply applying a `ContextCruncher()` to the context before filling the prompt template.
 
-For example, if you are using [this example](https://python.langchain.com/docs/use_cases/question_answering/quickstart#retrieval-and-generation-generate) from the LangChain docs, the modified pipeline becomes:
+For example, if you are using [this example](https://python.langchain.com/docs/use_cases/question_answering/quickstart#preview) from the LangChain docs, the modified pipeline becomes:
 ```python
 rag_chain = (
     {"context": retriever | format_docs, "question": RunnablePassthrough()}
