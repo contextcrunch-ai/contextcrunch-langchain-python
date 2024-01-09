@@ -6,7 +6,7 @@ The `ContextCruncher` is a [Runnable Lambda](https://python.langchain.com/docs/e
 - `context`: This could be your conversation history, or retrieved information from RAG
 - `question`: The relevant query to find in the data. ContextCrunch uses this narrow down the context to only the most essential parts.
 
-When initializing the `ContextCruncher()` there is also an optional `compression_ratio` parameter that controls how aggresively the algorithm should compress. The general trend is the higher the compression ratio, the less information is retained. Generally, a compression ratio of 0.9 is a good start, though for small contexts, the algorithm may only actually compress 50% of the context (even if you ask for 90%).
+When initializing the `ContextCruncher()` there is also an optional `compression_ratio` parameter that controls how aggresively the algorithm should compress. The general trend is the higher the compression ratio, the less information is retained. Generally, a compression ratio of 0.9 is a good start, though for small contexts, the algorithm may compress less than requested compression ratio.
 
 ## Return
 `ContextCruncher` returns a dictionary with:
