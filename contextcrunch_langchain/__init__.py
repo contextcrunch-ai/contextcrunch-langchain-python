@@ -1,1 +1,1 @@
-from .context_cruncher import ContextCruncher
+from .context_cruncher import ContextCruncher, ConversationCruncher
