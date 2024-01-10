@@ -8,11 +8,9 @@ from langchain_core.utils import (
     get_pydantic_field_names,
 )
 
-
-class ContextCruncher(RunnableLambda):
-    
-    def __init__(self, compression_ratio=0.9):
-        super().__init__(self.call)
+class _BaseContextCrunch(RunnableLambda):
+    def __init__(self, func, compression_ratio=0.9,):
+        super().__init__(func)
         if compression_ratio <= 0.5 or compression_ratio >= 1 :
             raise Exception("Compression ratio must be between 0.5 and 1 (exclusive)")
         self.compression_ratio = compression_ratio
@@ -28,7 +26,7 @@ class ContextCruncher(RunnableLambda):
         try:
             import contextcrunch
 
-            check_package_version("contextcrunch", gte_version="1.0.0")
+            check_package_version("contextcrunch", gte_version="1.0.2")
             self.client = contextcrunch.ContextCrunchClient(
                 api_key=self.contextcrunch_api_key.get_secret_value(),
                 url=self.contextcrunch_api_url
@@ -39,10 +37,32 @@ class ContextCruncher(RunnableLambda):
                 "Could not import contextcrunch python package. "
                 "Please it install it with `pip install contextcrunch`."
             )
+
+class ContextCruncher(_BaseContextCrunch):
+    """
+    For use in condensing long RAG contexts.
+    """
     
-    
+    def __init__(self, compression_ratio=0.9):
+        super().__init__(self.call, compression_ratio=compression_ratio)
+        
     def call(self, input: Dict) -> Dict:
         context = input["context"]
         prompt = input["question"]
-        compressed_context = self.client.compress(context, prompt)
+        compressed_context = self.client.compress(context, prompt, type='rag')
         return {"context": compressed_context, "question": prompt}
+    
+    
+class ConversationCruncher(_BaseContextCrunch):
+    """
+    For use in condensing long conversation histories.
+    """
+    
+    def __init__(self, compression_ratio=0.9):
+        super().__init__(self.call, compression_ratio=compression_ratio)
+        
+    def call(self, input: Dict) -> str:
+        context = input["history"]
+        prompt = input["input"]
+        compressed_context = self.client.compress(context, prompt, type='conversation')
+        return {"history": compressed_context, "input": prompt}
