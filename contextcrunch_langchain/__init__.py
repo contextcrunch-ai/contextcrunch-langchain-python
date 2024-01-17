@@ -1,1 +1,2 @@
 from .context_cruncher import ContextCruncher, ConversationCruncher
+from .compressor import ContextCrunchDocumentCompressor

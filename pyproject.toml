@@ -7,7 +7,7 @@ packages = ["contextcrunch_langchain"]
 
 [project]
 name = "contextcrunch-langchain"
-version = "1.0.1"
+version = "1.0.2"
 authors = [{ name = "Matthew Kwiatkowski", email = "matt@mkcodes.ca" }]
 description = "LangChain Integration for ContextCrunch prompt compression."
 readme = "README.md"
